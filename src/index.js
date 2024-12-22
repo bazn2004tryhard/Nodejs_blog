@@ -5,7 +5,15 @@ const { engine } = require("express-handlebars"); // Import đúng cách
 const app = express();
 const port = 3000;
 
+const route = require("./routes/index.route");
+
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.json());
 app.use(morgan("combined"));
 
 // Template engine
@@ -18,13 +26,8 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "sources/views")); // Đường dẫn thư mục views
 
-app.get("/", (req, res) => {
-  res.render("home"); // Render file home.handlebars
-});
-
-app.get("/news", (req, res) => {
-  res.render("news"); // Render file news.handlebars
-});
+// routes init khoiwr taoj tuyến đường
+route(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
