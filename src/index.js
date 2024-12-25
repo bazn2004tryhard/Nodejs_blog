@@ -6,6 +6,11 @@ const app = express();
 const port = 3000;
 
 const route = require("./routes/index.route");
+const db = require("./config/db");
+
+//connect to db
+
+db.connect();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(
@@ -24,7 +29,7 @@ app.engine(
   })
 ); // Khởi tạo engine
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "sources/views")); // Đường dẫn thư mục views
+app.set("views", path.join(__dirname, "sources", "views")); // Đường dẫn thư mục views
 
 // routes init khoiwr taoj tuyến đường
 route(app);
